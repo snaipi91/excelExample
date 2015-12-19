@@ -22,7 +22,7 @@ $active_sheet->getColumnDimension('A')->setWidth(12);
 $active_sheet->getColumnDimension('B')->setWidth(12);
 $active_sheet->getColumnDimension('C')->setWidth(15);
 $active_sheet->getColumnDimension('D')->setWidth(15);
-$active_sheet->getColumnDimension('E')->setWidth(10);
+$active_sheet->getColumnDimension('E')->setWidth(15);
 
 $active_sheet->mergeCells('A1:C1');
 $active_sheet->setCellValue('A1', 'API Football');
@@ -31,6 +31,7 @@ $active_sheet->setCellValue('B2','Match time');
 $active_sheet->setCellValue('C2','Home team');
 $active_sheet->setCellValue('D2','Guest team');
 $active_sheet->setCellValue('E2','Account');
+$active_sheet->setCellValue('F2','Author goal');
 
 //массив стилей
 $style_header = array(
@@ -49,7 +50,7 @@ $style_header = array(
     )
 );
 
-$active_sheet->getStyle('A2:E2')->applyFromArray($style_header);
+$active_sheet->getStyle('A2:F2')->applyFromArray($style_header);
 
 
 $row_start = 3;
@@ -65,6 +66,17 @@ foreach($player as $item) {
     $active_sheet->setCellValue('C'.$row_next, $item['match_localteam_name']);
     $active_sheet->setCellValue('D'.$row_next, $item['match_visitorteam_name']);
     $active_sheet->setCellValue('E'.$row_next, $item['match_ft_score']);
+
+    $str = '';
+
+    foreach($item['match_events'] as $events) {
+        if($events['event_type'] == 'goal') {
+            $str.= 'GOAL!!! '.$events['event_minute']. 'min, ' . $events['event_player'] . '|';
+        }
+    }
+
+
+    $active_sheet->setCellValue('F'.$row_next, $str);
 
     $i++;
 }
