@@ -8,7 +8,7 @@
 header("Content-Type:application/vnd.ms-excel");
 header("Content-Disposition:attachment;filename='test.xls'");
 
-$token = "d56d138a-ee63-80d2-2fc5d4ed2f5b";
+$token = "TOKEN";
 
 // делаем запрос к API Football
 $ch = curl_init("http://football-api.com/api/?Action=fixtures&OutputType=JSON&APIKey=" . $token . "&from_date=19.07.2015&to_date=15.12.2015");
